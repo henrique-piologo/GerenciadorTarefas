@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using GerenciadorTarefas.Models;
+
+
+class Program
+{
+    static void Main()
+    {
+        GerenciadorDeTarefas gerenciador = new GerenciadorDeTarefas();
+        gerenciador.ExibirMenu();
+    }
+}
+
+class GerenciadorDeTarefas
+{
+
+
+
+    private List<Tarefa> tarefas = new List<Tarefa>();
+
+        
+    public void ExibirMenu()
+    {
+        string mensagem = "GERENCIADOR DE TAREFAS\n"
+                + "1 - Adicionar Tarefa\n"
+                + "2 - Remover Tarefa\n"
+                + "3 - Listar Tarefas\n"
+                + "4 - Marcar Tarefa como concluida\n"
+                + "5 - Sair\n"
+                + "Escolha uma Opção: ";
+        while (true) 
+        {
+            Console.Clear();
+            System.Console.WriteLine(mensagem);
+            string opcao = Console.ReadLine() ?? ""; 
+
+            switch (opcao) 
+            {
+                case "1":
+                    AdicionarTarefa();
+                    break;
+                
+                case "2":
+                    System.Console.WriteLine("Removendo Tarefa\n");
+                    break;
+
+                case "3":
+                    ListarTarefas();
+                    break;
+
+                case "4": 
+                    System.Console.WriteLine("Marcar como concluida\n");
+                    break;
+
+                case "5": 
+                    System.Console.WriteLine("Sair");
+                    return;
+
+                case "":
+                    System.Console.WriteLine("Insira alguma opção: (Aperte ENTER para continuar)");
+                    Console.ReadLine();
+                    break;
+                    
+                default:
+                    System.Console.WriteLine("Escolha uma Opção Válida!!! (Aperte ENTER para continuar.)");
+                    Console.ReadLine();
+                    break;
+            }
+        }
+
+    }
+
+
+    public void AdicionarTarefa(){
+        Console.Clear();
+        System.Console.WriteLine("Qual o nome da tarefa: ");
+        string nome = Console.ReadLine() ?? "";
+
+        System.Console.WriteLine("Qual a descrição da tarefa: ");
+        string descricao = Console.ReadLine() ?? "";
+
+        tarefas.Add(new Tarefa(nome, descricao));
+    }
+
+    public void ListarTarefas(){
+        Console.Clear();
+        if (tarefas.Count == 0)
+        {
+            System.Console.WriteLine("Nenhuma tarefa registrada!!");
+        } else {
+            System.Console.WriteLine("=   LISTA DE TAREFAS   =");
+            for (int i = 0; i < tarefas.Count; i++)
+            {
+                System.Console.WriteLine(tarefas[i].ToString());
+
+            }
+        }
+        Console.ReadLine();
+
+    }
+}
+
+
+
