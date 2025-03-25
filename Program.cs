@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using GerenciadorTarefas.Models;
 
 
@@ -42,11 +43,12 @@ class GerenciadorDeTarefas
                     break;
                 
                 case "2":
-                    System.Console.WriteLine("Removendo Tarefa\n");
+                    RemoverTarefa();
                     break;
 
                 case "3":
                     ListarTarefas();
+                    Console.ReadLine();
                     break;
 
                 case "4": 
@@ -54,7 +56,7 @@ class GerenciadorDeTarefas
                     break;
 
                 case "5": 
-                    System.Console.WriteLine("Sair");
+                    System.Console.WriteLine("Programa finalizado...");
                     return;
 
                 case "":
@@ -96,8 +98,20 @@ class GerenciadorDeTarefas
 
             }
         }
-        Console.ReadLine();
 
+    }
+
+    public void RemoverTarefa() {
+        int num = -1;
+        while(num != 0)
+        {
+            Console.Clear();
+            ListarTarefas();
+            System.Console.WriteLine("Digite o número da tarefa que deseja remover: ");
+            num = int.Parse(Console.ReadLine());
+            tarefas.Remove(tarefas[num - 1]);
+            System.Console.WriteLine("Tarefa removida com sucesso!");
+        }
     }
 }
 
