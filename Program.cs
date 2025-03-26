@@ -36,33 +36,40 @@ class GerenciadorDeTarefas
             switch (opcao) 
             {
                 case "1":
+                Console.Clear();
                     AdicionarTarefa();
                     break;
                 
                 case "2":
+                Console.Clear();
                     RemoverTarefa();
                     break;
 
                 case "3":
+                Console.Clear();
                     ListarTarefas();
                     System.Console.WriteLine("Aperte ENTER para continuar.");
                     Console.ReadLine();
                     break;
 
                 case "4": 
+                Console.Clear();
                     MarcarConcluida();
                     break;
 
                 case "5": 
+                Console.Clear();
                     System.Console.WriteLine("Programa finalizado...");
                     return;
 
                 case "":
+                Console.Clear();
                     System.Console.WriteLine("Insira alguma opção: (Aperte ENTER para continuar.)");
                     Console.ReadLine();
                     break;
                     
                 default:
+                Console.Clear();
                     System.Console.WriteLine("Escolha uma Opção Válida!!! (Aperte ENTER para continuar.)");
                     Console.ReadLine();
                     break;
@@ -73,7 +80,6 @@ class GerenciadorDeTarefas
 
     public void AdicionarTarefa()
     {
-        Console.Clear();
         System.Console.WriteLine("Qual o nome da tarefa: ");
         string nome = Console.ReadLine() ?? "";
 
@@ -85,9 +91,9 @@ class GerenciadorDeTarefas
 
     public void ListarTarefas()
     {
-        Console.Clear();
         if (tarefas.Count == 0)
         {
+            Console.Clear();
             System.Console.WriteLine("Nenhuma tarefa registrada!!");
         } 
         else 
@@ -102,22 +108,28 @@ class GerenciadorDeTarefas
 
     public void RemoverTarefa()
     {
-        int num = -1;
-        while(num != 0)
+        System.Console.WriteLine("Digite o número da tarefa que deseja remover: ");
+        ListarTarefas();
+        if(tarefas.Count != 0)
         {
-            Console.Clear();
-            ListarTarefas();
-            System.Console.WriteLine("Digite o número da tarefa que deseja remover: ");
-            num = int.Parse(Console.ReadLine() ?? "");
+            int num = int.Parse(Console.ReadLine() ?? "");
             tarefas.Remove(tarefas[num - 1]);
             System.Console.WriteLine("Tarefa removida com sucesso!");
         }
+        else
+        {
+            Console.ReadLine();
+            return;
+        }
+        
     }
 
     public void MarcarConcluida()
     {
         ListarTarefas();
-        System.Console.WriteLine("Digite o número da tarefa que deseja marcar como concluida/pendente: ");
+        if(tarefas.Count != 0)
+        {
+            System.Console.WriteLine("Digite o número da tarefa que deseja marcar como concluida/pendente: ");
         int num = int.Parse(Console.ReadLine() ?? "");
         if(num < tarefas.Count && num > tarefas.Count)
         {
@@ -130,6 +142,13 @@ class GerenciadorDeTarefas
         else{
             tarefas[num - 1].Concluida = false;
         }
+        }
+        else
+        {
+            Console.ReadLine();
+            return;
+        }
+        
     }
 }
 
