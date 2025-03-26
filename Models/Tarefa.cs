@@ -9,7 +9,7 @@ namespace GerenciadorTarefas.Models
     {
         private string Nome {get; set;}
         private string Descricao {get; set;}
-        private bool Concluida {get; set;}
+        public bool Concluida {get; set;}
 
         public Tarefa(string nome, string descricao) {
             Nome = nome;
@@ -18,10 +18,17 @@ namespace GerenciadorTarefas.Models
         }
 
         public override string ToString()
-        {
-            
-            return $"{Nome} - {Descricao}";
+        {  
+            string status = "";
+            if(Concluida == false)
+            {
+                status = "Pendente";
+            }
+            else
+            {
+                status = "Concluido";
+            }
+            return $"{status} - {Nome} -- {Descricao}";
         }
-
     }
 }
