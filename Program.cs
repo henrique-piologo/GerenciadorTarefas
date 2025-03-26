@@ -16,11 +16,8 @@ class Program
 class GerenciadorDeTarefas
 {
 
-
-
     private List<Tarefa> tarefas = new List<Tarefa>();
 
-        
     public void ExibirMenu()
     {
         string mensagem = "GERENCIADOR DE TAREFAS\n"
@@ -48,11 +45,12 @@ class GerenciadorDeTarefas
 
                 case "3":
                     ListarTarefas();
+                    System.Console.WriteLine("Aperte ENTER para continuar.");
                     Console.ReadLine();
                     break;
 
                 case "4": 
-                    System.Console.WriteLine("Marcar como concluida\n");
+                    MarcarConcluida();
                     break;
 
                 case "5": 
@@ -60,7 +58,7 @@ class GerenciadorDeTarefas
                     return;
 
                 case "":
-                    System.Console.WriteLine("Insira alguma opção: (Aperte ENTER para continuar)");
+                    System.Console.WriteLine("Insira alguma opção: (Aperte ENTER para continuar.)");
                     Console.ReadLine();
                     break;
                     
@@ -71,10 +69,10 @@ class GerenciadorDeTarefas
             }
         }
 
-    }
+    }  
 
-
-    public void AdicionarTarefa(){
+    public void AdicionarTarefa()
+    {
         Console.Clear();
         System.Console.WriteLine("Qual o nome da tarefa: ");
         string nome = Console.ReadLine() ?? "";
@@ -85,32 +83,52 @@ class GerenciadorDeTarefas
         tarefas.Add(new Tarefa(nome, descricao));
     }
 
-    public void ListarTarefas(){
+    public void ListarTarefas()
+    {
         Console.Clear();
         if (tarefas.Count == 0)
         {
             System.Console.WriteLine("Nenhuma tarefa registrada!!");
-        } else {
-            System.Console.WriteLine("=   LISTA DE TAREFAS   =");
+        } 
+        else 
+        {
+            System.Console.WriteLine("====LISTA DE TAREFAS====");
             for (int i = 0; i < tarefas.Count; i++)
             {
-                System.Console.WriteLine(tarefas[i].ToString());
-
+                System.Console.WriteLine($"{i + 1}-{tarefas[i].ToString()}");
             }
         }
-
     }
 
-    public void RemoverTarefa() {
+    public void RemoverTarefa()
+    {
         int num = -1;
         while(num != 0)
         {
             Console.Clear();
             ListarTarefas();
             System.Console.WriteLine("Digite o número da tarefa que deseja remover: ");
-            num = int.Parse(Console.ReadLine());
+            num = int.Parse(Console.ReadLine() ?? "");
             tarefas.Remove(tarefas[num - 1]);
             System.Console.WriteLine("Tarefa removida com sucesso!");
+        }
+    }
+
+    public void MarcarConcluida()
+    {
+        ListarTarefas();
+        System.Console.WriteLine("Digite o número da tarefa que deseja marcar como concluida/pendente: ");
+        int num = int.Parse(Console.ReadLine() ?? "");
+        if(num < tarefas.Count && num > tarefas.Count)
+        {
+            System.Console.WriteLine("Essa tarefa não existe");
+        } 
+        else if(tarefas[num - 1].Concluida == false)
+        {
+            tarefas[num - 1].Concluida = true;
+        }
+        else{
+            tarefas[num - 1].Concluida = false;
         }
     }
 }
